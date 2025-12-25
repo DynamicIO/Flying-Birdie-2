@@ -403,7 +403,7 @@
 
         // Haptic Feedback
         function haptic(type = 'light') {
-            // Try standard Vibration API
+            // Try standard Vibration API (Android)
             if ('vibrate' in navigator) {
                 try {
                     switch(type) {
@@ -418,6 +418,53 @@
                             break;
                         case 'success':
                             navigator.vibrate([15, 50, 25]);
+                            break;
+                    }
+                } catch(e) {}
+            }
+            
+            // iOS Haptic Workaround - uses low-frequency audio pulse
+            // This creates a subtle "thump" sensation on iOS devices
+            if (audioContext) {
+                try {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.type = 'sine';
+                    const now = audioContext.currentTime;
+                    
+                    switch(type) {
+                        case 'light':
+                            oscillator.frequency.setValueAtTime(10, now);
+                            gainNode.gain.setValueAtTime(0.5, now);
+                            gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.03);
+                            oscillator.start(now);
+                            oscillator.stop(now + 0.03);
+                            break;
+                        case 'medium':
+                            oscillator.frequency.setValueAtTime(15, now);
+                            gainNode.gain.setValueAtTime(0.6, now);
+                            gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+                            oscillator.start(now);
+                            oscillator.stop(now + 0.05);
+                            break;
+                        case 'heavy':
+                            oscillator.frequency.setValueAtTime(20, now);
+                            gainNode.gain.setValueAtTime(0.8, now);
+                            gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                            oscillator.start(now);
+                            oscillator.stop(now + 0.1);
+                            break;
+                        case 'success':
+                            oscillator.frequency.setValueAtTime(12, now);
+                            gainNode.gain.setValueAtTime(0.4, now);
+                            gainNode.gain.setValueAtTime(0.5, now + 0.03);
+                            gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.06);
+                            oscillator.start(now);
+                            oscillator.stop(now + 0.06);
                             break;
                     }
                 } catch(e) {}
