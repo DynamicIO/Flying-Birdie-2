@@ -329,23 +329,98 @@
     </div>
 
     <script>
+        // Audio Context for Sound Effects
+        let audioContext = null;
+        
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+        }
+
+        // Sound Effects Generator
+        function playSound(type) {
+            if (!audioContext) return;
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            const now = audioContext.currentTime;
+            
+            switch(type) {
+                case 'jump':
+                    // Quick upward chirp
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(400, now);
+                    oscillator.frequency.exponentialRampToValueAtTime(600, now + 0.1);
+                    gainNode.gain.setValueAtTime(0.3, now);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+                    oscillator.start(now);
+                    oscillator.stop(now + 0.15);
+                    break;
+                    
+                case 'score':
+                    // Happy ding sound
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(880, now);
+                    oscillator.frequency.setValueAtTime(1100, now + 0.1);
+                    gainNode.gain.setValueAtTime(0.3, now);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                    oscillator.start(now);
+                    oscillator.stop(now + 0.3);
+                    break;
+                    
+                case 'hit':
+                    // Crash/thud sound
+                    oscillator.type = 'sawtooth';
+                    oscillator.frequency.setValueAtTime(200, now);
+                    oscillator.frequency.exponentialRampToValueAtTime(50, now + 0.2);
+                    gainNode.gain.setValueAtTime(0.4, now);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                    oscillator.start(now);
+                    oscillator.stop(now + 0.3);
+                    break;
+                    
+                case 'start':
+                    // Game start melody
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(523, now);
+                    oscillator.frequency.setValueAtTime(659, now + 0.1);
+                    oscillator.frequency.setValueAtTime(784, now + 0.2);
+                    gainNode.gain.setValueAtTime(0.25, now);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+                    oscillator.start(now);
+                    oscillator.stop(now + 0.4);
+                    break;
+            }
+        }
+
         // Haptic Feedback
         function haptic(type = 'light') {
+            // Try standard Vibration API
             if ('vibrate' in navigator) {
-                switch(type) {
-                    case 'light':
-                        navigator.vibrate(10);
-                        break;
-                    case 'medium':
-                        navigator.vibrate(25);
-                        break;
-                    case 'heavy':
-                        navigator.vibrate([50, 30, 50]);
-                        break;
-                    case 'success':
-                        navigator.vibrate([10, 50, 20]);
-                        break;
-                }
+                try {
+                    switch(type) {
+                        case 'light':
+                            navigator.vibrate(15);
+                            break;
+                        case 'medium':
+                            navigator.vibrate(30);
+                            break;
+                        case 'heavy':
+                            navigator.vibrate([40, 30, 60]);
+                            break;
+                        case 'success':
+                            navigator.vibrate([15, 50, 25]);
+                            break;
+                    }
+                } catch(e) {}
             }
         }
 
@@ -422,6 +497,7 @@
             jump() {
                 this.velocity = CONFIG.jumpForce;
                 haptic('light');
+                playSound('jump');
                 // Create jump particles
                 for (let i = 0; i < 8; i++) {
                     particles.push(new Particle(this.x, this.y + CONFIG.birdSize / 2));
@@ -808,6 +884,7 @@
                         score++;
                         scoreDisplay.textContent = score;
                         haptic('success');
+                        playSound('score');
                         // Score particles
                         for (let i = 0; i < 15; i++) {
                             particles.push(new Particle(bird.x + CONFIG.birdSize, bird.y));
@@ -838,10 +915,12 @@
 
         // Start game
         function startGame() {
+            initAudio();
             gameState = 'playing';
             startScreen.classList.add('hidden');
             scoreDisplay.classList.add('visible');
             resetGame();
+            playSound('start');
             bird.jump();
         }
 
@@ -850,6 +929,7 @@
             gameState = 'gameOver';
             scoreDisplay.classList.remove('visible');
             haptic('heavy');
+            playSound('hit');
             
             // Update best score
             if (score > bestScore) {
@@ -871,6 +951,7 @@
             scoreDisplay.classList.add('visible');
             gameState = 'playing';
             resetGame();
+            playSound('start');
             bird.jump();
         }
 
