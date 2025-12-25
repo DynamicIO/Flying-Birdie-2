@@ -94,6 +94,9 @@
             margin-bottom: 1rem;
             animation: float 3s ease-in-out infinite;
             letter-spacing: 2px;
+            text-align: center;
+            width: 100%;
+            padding: 0 1rem;
         }
         
         @keyframes float {
@@ -326,6 +329,26 @@
     </div>
 
     <script>
+        // Haptic Feedback
+        function haptic(type = 'light') {
+            if ('vibrate' in navigator) {
+                switch(type) {
+                    case 'light':
+                        navigator.vibrate(10);
+                        break;
+                    case 'medium':
+                        navigator.vibrate(25);
+                        break;
+                    case 'heavy':
+                        navigator.vibrate([50, 30, 50]);
+                        break;
+                    case 'success':
+                        navigator.vibrate([10, 50, 20]);
+                        break;
+                }
+            }
+        }
+
         // Game Configuration
         const CONFIG = {
             gravity: 0.5,
@@ -398,6 +421,7 @@
 
             jump() {
                 this.velocity = CONFIG.jumpForce;
+                haptic('light');
                 // Create jump particles
                 for (let i = 0; i < 8; i++) {
                     particles.push(new Particle(this.x, this.y + CONFIG.birdSize / 2));
@@ -783,6 +807,7 @@
                     if (pipe.checkPass(bird)) {
                         score++;
                         scoreDisplay.textContent = score;
+                        haptic('success');
                         // Score particles
                         for (let i = 0; i < 15; i++) {
                             particles.push(new Particle(bird.x + CONFIG.birdSize, bird.y));
@@ -824,6 +849,7 @@
         function endGame() {
             gameState = 'gameOver';
             scoreDisplay.classList.remove('visible');
+            haptic('heavy');
             
             // Update best score
             if (score > bestScore) {
