@@ -459,6 +459,243 @@
             letter-spacing: 1px;
             text-align: center;
         }
+
+        /* Coins bar on start screen */
+        .coins-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 215, 0, 0.12);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            padding: 7px 18px;
+            border-radius: 25px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.05rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .shop-btn {
+            background: linear-gradient(135deg, var(--gold) 0%, #e67e22 100%);
+            border: none;
+            padding: 0.65rem 2rem;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1rem;
+            color: #1a1a2e;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #a05f00, 0 8px 20px rgba(255, 215, 0, 0.3);
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 0.5rem;
+        }
+
+        .shop-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 0px 0 #a05f00, 0 4px 10px rgba(255, 215, 0, 0.2);
+        }
+
+        /* Shop Overlay */
+        .shop-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: rgba(10, 8, 30, 0.98);
+            z-index: 20;
+            overflow: hidden;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .shop-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+        }
+
+        .shop-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid rgba(233, 69, 96, 0.3);
+            flex-shrink: 0;
+        }
+
+        .shop-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.7rem;
+            color: var(--accent);
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .shop-header-coins {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 215, 0, 0.12);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.1rem;
+            color: var(--gold);
+        }
+
+        .close-shop-btn {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .close-shop-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .shop-body {
+            padding: 0.5rem 1.2rem 2rem;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .shop-section-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.65);
+            margin-bottom: 0.75rem;
+            margin-top: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .shop-item {
+            background: rgba(255, 255, 255, 0.04);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 0.85rem 0.6rem;
+            text-align: center;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+        }
+
+        .shop-item.owned {
+            border-color: rgba(0, 255, 136, 0.35);
+            background: rgba(0, 255, 136, 0.04);
+        }
+
+        .shop-item.equipped {
+            border-color: var(--accent);
+            background: rgba(233, 69, 96, 0.08);
+            box-shadow: 0 0 14px rgba(233, 69, 96, 0.2);
+        }
+
+        .shop-item-preview {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            margin: 0 auto 0.55rem;
+            border: 3px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .shop-item-preview.theme-preview {
+            border-radius: 12px;
+            font-size: 1.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+        }
+
+        .shop-item-name {
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.9rem;
+            color: white;
+            margin-bottom: 0.35rem;
+        }
+
+        .shop-item-price {
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.82rem;
+            color: var(--gold);
+            margin-bottom: 0.35rem;
+        }
+
+        .shop-item-free {
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.82rem;
+            color: #00ff88;
+            margin-bottom: 0.35rem;
+        }
+
+        .shop-buy-btn {
+            width: 100%;
+            padding: 0.38rem 0;
+            background: linear-gradient(135deg, var(--gold) 0%, #e67e22 100%);
+            border: none;
+            border-radius: 10px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.82rem;
+            color: #1a1a2e;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .shop-buy-btn:active { transform: scale(0.95); }
+
+        .shop-buy-btn:disabled {
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.25);
+            cursor: not-allowed;
+        }
+
+        .shop-equip-btn {
+            width: 100%;
+            padding: 0.38rem 0;
+            background: linear-gradient(135deg, #00ff88 0%, #00b894 100%);
+            border: none;
+            border-radius: 10px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.82rem;
+            color: #1a1a2e;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .shop-equip-btn:active { transform: scale(0.95); }
+
+        .shop-equipped-badge {
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.82rem;
+            color: var(--accent);
+            display: block;
+            padding: 0.38rem 0;
+        }
+
+        @keyframes purchasePop {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.06); }
+            100% { transform: scale(1); }
+        }
         
         /* Loading Screen */
         .loading-screen {
@@ -559,6 +796,7 @@
         <div class="overlay hidden" id="startScreen">
             <h1 class="title">FLYING BIRDIE</h1>
             <p class="subtitle">Navigate the neon skies</p>
+            <div class="coins-bar">🪙 <span id="startScreenCoins">0</span> coins</div>
             <div class="tap-hint">
                 <div class="tap-circle">
                     <span class="tap-icon">👆</span>
@@ -573,6 +811,7 @@
                 <p class="skin-title">Choose Time of Day</p>
                 <div class="skins" id="themeSelector"></div>
             </div>
+            <button class="shop-btn" id="shopBtn">🛍️ Shop</button>
             <p class="footer-text">Powered by Dynamic.IO</p>
         </div>
         
@@ -584,8 +823,12 @@
                 <p class="score-value" id="finalScore">0</p>
                 <div class="stats-row">
                     <div class="stat-item">
-                        <p class="stat-label">Coins</p>
+                        <p class="stat-label">Earned</p>
                         <p class="stat-value" id="finalCoins">0</p>
+                    </div>
+                    <div class="stat-item">
+                        <p class="stat-label">Total 🪙</p>
+                        <p class="stat-value" id="totalCoinsDisplay">0</p>
                     </div>
                     <div class="stat-item">
                         <p class="stat-label">Max Combo</p>
@@ -593,11 +836,25 @@
                     </div>
                 </div>
                 <p class="best-score">Best: <span id="bestScore">0</span></p>
-                <p class="unlock-notice hidden" id="unlockNotice">🎉 New bird unlocked!</p>
                 <div class="btn-group">
                     <button class="play-btn" id="restartBtn">Play Again</button>
                     <button class="menu-btn" id="menuBtn">Main Menu</button>
+                    <button class="menu-btn" id="shopBtnGameOver">🛍️ Shop</button>
                 </div>
+            </div>
+        </div>
+        <!-- Shop Overlay -->
+        <div class="shop-overlay hidden" id="shopOverlay">
+            <div class="shop-header">
+                <span class="shop-title">🛍️ Shop</span>
+                <div class="shop-header-coins">🪙 <span id="shopCoinCount">0</span></div>
+                <button class="close-shop-btn" id="closeShopBtn">✕</button>
+            </div>
+            <div class="shop-body">
+                <p class="shop-section-title">🐦 Bird Skins</p>
+                <div class="shop-grid" id="shopSkinsGrid"></div>
+                <p class="shop-section-title">🌅 Themes</p>
+                <div class="shop-grid" id="shopThemesGrid"></div>
             </div>
         </div>
     </div>
@@ -848,12 +1105,12 @@
 
         // Bird Skins
         const BIRD_SKINS = [
-            { id: 'default', name: 'Classic', primary: '#ff9f43', secondary: '#ee5a24', beak: '#e74c3c', unlockScore: 0 },
-            { id: 'ice', name: 'Ice', primary: '#74b9ff', secondary: '#0984e3', beak: '#00cec9', unlockScore: 50 },
-            { id: 'fire', name: 'Fire', primary: '#fd79a8', secondary: '#e84393', beak: '#d63031', unlockScore: 100 },
-            { id: 'gold', name: 'Golden', primary: '#ffd700', secondary: '#f39c12', beak: '#e67e22', unlockScore: 150 },
-            { id: 'neon', name: 'Neon', primary: '#00ff88', secondary: '#00b894', beak: '#55efc4', unlockScore: 200 },
-            { id: 'shadow', name: 'Shadow', primary: '#636e72', secondary: '#2d3436', beak: '#b2bec3', unlockScore: 250 },
+            { id: 'default', name: 'Classic', primary: '#ff9f43', secondary: '#ee5a24', beak: '#e74c3c', price: 0 },
+            { id: 'ice', name: 'Ice', primary: '#74b9ff', secondary: '#0984e3', beak: '#00cec9', price: 50 },
+            { id: 'fire', name: 'Fire', primary: '#fd79a8', secondary: '#e84393', beak: '#d63031', price: 100 },
+            { id: 'gold', name: 'Golden', primary: '#ffd700', secondary: '#f39c12', beak: '#e67e22', price: 200 },
+            { id: 'neon', name: 'Neon', primary: '#00ff88', secondary: '#00b894', beak: '#55efc4', price: 350 },
+            { id: 'shadow', name: 'Shadow', primary: '#636e72', secondary: '#2d3436', beak: '#b2bec3', price: 500 },
         ];
 
         // Power-up types
@@ -864,10 +1121,10 @@
 
         // Time of Day Themes
         const TIME_THEMES = [
-            { id: 'night', name: 'Night', emoji: '🌙', top: '#0f0c29', mid: '#302b63', bottom: '#24243e', stars: 1 },
-            { id: 'dawn', name: 'Dawn', emoji: '🌅', top: '#2c3e50', mid: '#e74c3c', bottom: '#f39c12', stars: 0.3 },
-            { id: 'day', name: 'Day', emoji: '☀️', top: '#74b9ff', mid: '#81ecec', bottom: '#dfe6e9', stars: 0 },
-            { id: 'dusk', name: 'Dusk', emoji: '🌆', top: '#2d3436', mid: '#6c5ce7', bottom: '#fd79a8', stars: 0.5 }
+            { id: 'night', name: 'Night', emoji: '🌙', top: '#0f0c29', mid: '#302b63', bottom: '#24243e', stars: 1, price: 0 },
+            { id: 'dawn', name: 'Dawn', emoji: '🌅', top: '#2c3e50', mid: '#e74c3c', bottom: '#f39c12', stars: 0.3, price: 75 },
+            { id: 'day', name: 'Day', emoji: '☀️', top: '#74b9ff', mid: '#81ecec', bottom: '#dfe6e9', stars: 0, price: 125 },
+            { id: 'dusk', name: 'Dusk', emoji: '🌆', top: '#2d3436', mid: '#6c5ce7', bottom: '#fd79a8', stars: 0.5, price: 150 }
         ];
 
         // ============================================
@@ -879,8 +1136,12 @@
         let totalCoins = parseInt(localStorage.getItem('flyingBirdieCoins')) || 0;
         let bestScore = parseInt(localStorage.getItem('flyingBirdieBest')) || 0;
         let unlockedSkins = JSON.parse(localStorage.getItem('flyingBirdieSkins')) || ['default'];
+        let unlockedThemes = JSON.parse(localStorage.getItem('flyingBirdieThemes')) || ['night'];
         let selectedSkin = localStorage.getItem('flyingBirdieSelectedSkin') || 'default';
         let selectedTheme = localStorage.getItem('flyingBirdieTheme') || 'night';
+        // Ensure selected skin/theme are actually unlocked
+        if (!unlockedSkins.includes(selectedSkin)) selectedSkin = 'default';
+        if (!unlockedThemes.includes(selectedTheme)) selectedTheme = 'night';
         
         let bird, pipes, coinObjects, powerups, particles, trailParticles, clouds;
         let lastPipeSpawn = 0;
@@ -920,7 +1181,6 @@
         const finalCoinsEl = document.getElementById('finalCoins');
         const finalComboEl = document.getElementById('finalCombo');
         const bestScoreEl = document.getElementById('bestScore');
-        const unlockNotice = document.getElementById('unlockNotice');
         const restartBtn = document.getElementById('restartBtn');
         const menuBtn = document.getElementById('menuBtn');
         const skinSelector = document.getElementById('skinSelector');
@@ -1002,8 +1262,11 @@
                 if (skin.id === selectedSkin) div.classList.add('selected');
                 if (!unlockedSkins.includes(skin.id)) div.classList.add('locked');
                 div.style.background = `linear-gradient(135deg, ${skin.primary} 0%, ${skin.secondary} 100%)`;
-                div.title = `${skin.name} (Unlock at ${skin.unlockScore} pts)`;
-                div.onclick = () => selectSkin(skin.id);
+                div.title = unlockedSkins.includes(skin.id) ? skin.name : `${skin.name} — 🪙 ${skin.price}`;
+                div.onclick = () => {
+                    if (!unlockedSkins.includes(skin.id)) { openShop(); return; }
+                    selectSkin(skin.id);
+                };
                 skinSelector.appendChild(div);
             });
         }
@@ -1022,35 +1285,181 @@
                 const div = document.createElement('div');
                 div.className = 'skin-option theme-option';
                 if (theme.id === selectedTheme) div.classList.add('selected');
+                if (!unlockedThemes.includes(theme.id)) div.classList.add('locked');
                 div.style.background = `linear-gradient(180deg, ${theme.top} 0%, ${theme.mid} 50%, ${theme.bottom} 100%)`;
-                div.title = theme.name;
+                div.title = unlockedThemes.includes(theme.id) ? theme.name : `${theme.name} — 🪙 ${theme.price}`;
                 div.innerHTML = `<span style="font-size: 1.5rem;">${theme.emoji}</span>`;
                 div.style.display = 'flex';
                 div.style.alignItems = 'center';
                 div.style.justifyContent = 'center';
-                div.onclick = () => selectTheme(theme.id);
+                div.onclick = () => {
+                    if (!unlockedThemes.includes(theme.id)) { openShop(); return; }
+                    selectTheme(theme.id);
+                };
                 themeSelector.appendChild(div);
             });
         }
         
         function selectTheme(themeId) {
+            if (!unlockedThemes.includes(themeId)) return;
             selectedTheme = themeId;
             localStorage.setItem('flyingBirdieTheme', themeId);
             setupThemeSelector();
         }
         
-        function checkUnlocks() {
-            let newUnlock = false;
+        function updateStartScreenCoins() {
+            document.getElementById('startScreenCoins').textContent = totalCoins;
+        }
+
+        // ============================================
+        // SHOP SYSTEM
+        // ============================================
+
+        function openShop() {
+            const overlay = document.getElementById('shopOverlay');
+            overlay.classList.remove('hidden');
+            renderShop();
+        }
+
+        function closeShop() {
+            document.getElementById('shopOverlay').classList.add('hidden');
+        }
+
+        function renderShop() {
+            document.getElementById('shopCoinCount').textContent = totalCoins;
+
+            // --- Skins ---
+            const skinsGrid = document.getElementById('shopSkinsGrid');
+            skinsGrid.innerHTML = '';
             BIRD_SKINS.forEach(skin => {
-                if (!unlockedSkins.includes(skin.id) && bestScore >= skin.unlockScore) {
-                    unlockedSkins.push(skin.id);
-                    newUnlock = true;
+                const owned = unlockedSkins.includes(skin.id);
+                const equipped = selectedSkin === skin.id;
+
+                const item = document.createElement('div');
+                item.className = 'shop-item' + (equipped ? ' equipped' : owned ? ' owned' : '');
+
+                const preview = document.createElement('div');
+                preview.className = 'shop-item-preview';
+                preview.style.background = `linear-gradient(135deg, ${skin.primary}, ${skin.secondary})`;
+
+                const name = document.createElement('p');
+                name.className = 'shop-item-name';
+                name.textContent = skin.name;
+
+                item.appendChild(preview);
+                item.appendChild(name);
+
+                if (equipped) {
+                    const badge = document.createElement('span');
+                    badge.className = 'shop-equipped-badge';
+                    badge.textContent = '✓ Equipped';
+                    item.appendChild(badge);
+                } else if (owned) {
+                    const btn = document.createElement('button');
+                    btn.className = 'shop-equip-btn';
+                    btn.textContent = 'Equip';
+                    btn.onclick = (e) => { e.stopPropagation(); selectSkin(skin.id); renderShop(); setupSkinSelector(); };
+                    item.appendChild(btn);
+                } else {
+                    const priceEl = document.createElement('p');
+                    priceEl.className = skin.price === 0 ? 'shop-item-free' : 'shop-item-price';
+                    priceEl.textContent = skin.price === 0 ? 'Free' : `🪙 ${skin.price}`;
+                    item.appendChild(priceEl);
+
+                    const btn = document.createElement('button');
+                    btn.className = 'shop-buy-btn';
+                    btn.textContent = skin.price === 0 ? 'Claim' : 'Buy';
+                    btn.disabled = totalCoins < skin.price;
+                    btn.onclick = (e) => { e.stopPropagation(); purchaseSkin(skin.id); };
+                    item.appendChild(btn);
                 }
+
+                skinsGrid.appendChild(item);
             });
-            if (newUnlock) {
-                localStorage.setItem('flyingBirdieSkins', JSON.stringify(unlockedSkins));
-            }
-            return newUnlock;
+
+            // --- Themes ---
+            const themesGrid = document.getElementById('shopThemesGrid');
+            themesGrid.innerHTML = '';
+            TIME_THEMES.forEach(theme => {
+                const owned = unlockedThemes.includes(theme.id);
+                const equipped = selectedTheme === theme.id;
+
+                const item = document.createElement('div');
+                item.className = 'shop-item' + (equipped ? ' equipped' : owned ? ' owned' : '');
+
+                const preview = document.createElement('div');
+                preview.className = 'shop-item-preview theme-preview';
+                preview.style.background = `linear-gradient(180deg, ${theme.top}, ${theme.mid}, ${theme.bottom})`;
+                preview.textContent = theme.emoji;
+
+                const name = document.createElement('p');
+                name.className = 'shop-item-name';
+                name.textContent = theme.name;
+
+                item.appendChild(preview);
+                item.appendChild(name);
+
+                if (equipped) {
+                    const badge = document.createElement('span');
+                    badge.className = 'shop-equipped-badge';
+                    badge.textContent = '✓ Equipped';
+                    item.appendChild(badge);
+                } else if (owned) {
+                    const btn = document.createElement('button');
+                    btn.className = 'shop-equip-btn';
+                    btn.textContent = 'Equip';
+                    btn.onclick = (e) => { e.stopPropagation(); selectTheme(theme.id); renderShop(); setupThemeSelector(); };
+                    item.appendChild(btn);
+                } else {
+                    const priceEl = document.createElement('p');
+                    priceEl.className = 'shop-item-price';
+                    priceEl.textContent = `🪙 ${theme.price}`;
+                    item.appendChild(priceEl);
+
+                    const btn = document.createElement('button');
+                    btn.className = 'shop-buy-btn';
+                    btn.textContent = 'Buy';
+                    btn.disabled = totalCoins < theme.price;
+                    btn.onclick = (e) => { e.stopPropagation(); purchaseTheme(theme.id); };
+                    item.appendChild(btn);
+                }
+
+                themesGrid.appendChild(item);
+            });
+        }
+
+        function purchaseSkin(skinId) {
+            const skin = BIRD_SKINS.find(s => s.id === skinId);
+            if (!skin || unlockedSkins.includes(skinId) || totalCoins < skin.price) return;
+
+            totalCoins -= skin.price;
+            localStorage.setItem('flyingBirdieCoins', totalCoins);
+            unlockedSkins.push(skinId);
+            localStorage.setItem('flyingBirdieSkins', JSON.stringify(unlockedSkins));
+
+            selectSkin(skinId);
+            setupSkinSelector();
+            updateStartScreenCoins();
+            renderShop();
+            playSound('powerup');
+            haptic('success');
+        }
+
+        function purchaseTheme(themeId) {
+            const theme = TIME_THEMES.find(t => t.id === themeId);
+            if (!theme || unlockedThemes.includes(themeId) || totalCoins < theme.price) return;
+
+            totalCoins -= theme.price;
+            localStorage.setItem('flyingBirdieCoins', totalCoins);
+            unlockedThemes.push(themeId);
+            localStorage.setItem('flyingBirdieThemes', JSON.stringify(unlockedThemes));
+
+            selectTheme(themeId);
+            setupThemeSelector();
+            updateStartScreenCoins();
+            renderShop();
+            playSound('powerup');
+            haptic('success');
         }
 
         // Resize canvas
@@ -1596,6 +2005,7 @@
             createStars();
             setupSkinSelector();
             setupThemeSelector();
+            updateStartScreenCoins();
             bird = new Bird();
             pipes = [];
             coinObjects = [];
@@ -1840,23 +2250,16 @@
                 localStorage.setItem('flyingBirdieBest', bestScore);
             }
             
-            // Update total coins
+            // Add coins from this run to total wallet
             totalCoins += coins;
             localStorage.setItem('flyingBirdieCoins', totalCoins);
-            
-            // Check for unlocks
-            const newUnlock = checkUnlocks();
+            updateStartScreenCoins();
             
             finalScoreEl.textContent = score;
-            finalCoinsEl.textContent = coins;
+            finalCoinsEl.textContent = `+${coins}`;
+            document.getElementById('totalCoinsDisplay').textContent = totalCoins;
             finalComboEl.textContent = `x${maxCombo}`;
             bestScoreEl.textContent = bestScore;
-            
-            if (newUnlock) {
-                unlockNotice.classList.remove('hidden');
-            } else {
-                unlockNotice.classList.add('hidden');
-            }
             
             setTimeout(() => {
                 gameOverScreen.classList.remove('hidden');
@@ -1876,11 +2279,13 @@
 
         function goToMenu() {
             gameOverScreen.classList.add('hidden');
+            closeShop();
             startScreen.classList.remove('hidden');
             gameState = 'start';
             resetGame();
             setupSkinSelector();
             setupThemeSelector();
+            updateStartScreenCoins();
         }
 
         function handleTap(e) {
@@ -1918,6 +2323,39 @@
             e.preventDefault();
             e.stopPropagation();
             goToMenu();
+        }, { passive: false });
+
+        // Shop button on start screen
+        document.getElementById('shopBtn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            openShop();
+        });
+        document.getElementById('shopBtn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            openShop();
+        }, { passive: false });
+
+        // Shop button on game over screen
+        document.getElementById('shopBtnGameOver').addEventListener('click', (e) => {
+            e.stopPropagation();
+            openShop();
+        });
+        document.getElementById('shopBtnGameOver').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            openShop();
+        }, { passive: false });
+
+        // Close shop button
+        document.getElementById('closeShopBtn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeShop();
+        });
+        document.getElementById('closeShopBtn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            closeShop();
         }, { passive: false });
 
         document.addEventListener('keydown', (e) => {
